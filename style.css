@@ -39,12 +39,6 @@ table {
     justify-content: center;
 }
 
-#difficulty {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
 button {
     margin-bottom: 40px;
     padding: 10px;
@@ -72,6 +66,5 @@ button:hover {
 }
 
 button:focus {
-    box-shadow: 0 0 0 0.2rem rgba(58,176,195,.5);
     outline: none;
 }
