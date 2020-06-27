@@ -31,10 +31,10 @@ for (let i = 0 ; i < 9 ; i++) {
         newCell.style = 'text-align: center; padding: 0;'
         newInput.type = 'text';
         newInput.maxLength = 1;
+        newInput.setAttribute("onfocus", "this.select();"); //did not work with newInput.onfocus ??
         newInput.oninput = function() {
             if (!this.value.match(/[0-9]/g)) this.value = '';
         }
-        newInput.onfocus = "this.select()"; //doesn't work
         newInput.style = 'height: 50px; width: 50px; border: 1px solid black; outline: none; font-size: 24px; text-align: center; font-weight: 700;';
                 newRow.appendChild(newCell);
     }
@@ -61,7 +61,7 @@ for (let i = 5 ; i < 78 ; i+=9) {
 }
 
 
-//updating boardArr when board is updated
+//updating boardArr when user inputs numbers
 
 for (let i = 0; i < boxes.length; i++) {
     boxes[i].addEventListener('change', function() {
@@ -76,77 +76,21 @@ for (let i = 0; i < boxes.length; i++) {
 
 
 
-class Board {
-    constructor(difficulty) {
-        this.difficulty = '';
-    }
+let gameDifficulty = 'easy';
 
-    populate() { //not sure if i'm using classes right; all the boards can be put into an object for easy retrieval
-
-        if (this.difficulty === 'easy') {
-            boardArr = [
-                ['', '', '', '2', '', '1', '8', '4', ''],
-                ['', '8', '', '', '3', '', '', '', ''],
-                ['2', '', '9', '', '', '6', '', '3', '5'],
-                ['', '', '3', '', '5', '4', '', '9', ''],
-                ['', '', '8', '1', '', '3', '4', '', ''],
-                ['', '7', '', '8', '6', '', '1', '', ''],
-                ['8', '4', '', '9', '', '', '3', '', '2'],
-                ['', '', '', '', '7', '', '', '8', ''],
-                ['', '6', '2', '3', '', '8', '', '', '']
-            ];
-        }
-
-        else if (this.difficulty === 'medium') {
-            boardArr = [
-                ['', '2', '', '6', '', '8', '', '', ''],
-                ['5', '8', '', '', '', '9', '7', '', ''],
-                ['', '', '', '', '4', '', '', '', ''],
-                ['3', '7', '', '', '', '', '5', '', ''],
-                ['6', '', '', '', '', '', '', '', '4'],
-                ['', '', '8', '', '', '', '', '1', '3'],
-                ['', '', '', '', '2', '', '', '', ''],
-                ['', '', '9', '8', '', '', '', '3', '6'],
-                ['', '', '', '3', '', '6', '', '9', '']
-            ];
-        }
-
-        else if (this.difficulty === 'hard') {
-            boardArr = [
-                ['', '1', '', '', '8', '', '', '', ''],
-                ['', '', '2', '4', '', '', '9', '', ''],
-                ['', '', '8', '6', '', '', '', '', '7'],
-                ['2', '7', '', '', '', '', '', '1', ''],
-                ['', '4', '1', '', '5', '', '7', '2', ''],
-                ['', '8', '', '', '', '', '', '6', '9'],
-                ['4', '', '', '', '', '5', '2', '', ''],
-                ['', '', '6', '', '', '9', '3', '', ''],
-                ['', '', '', '', '4', '', '', '9', '']
-            ];
-        }
-        else {
-            boardArr = [
-                ['', '', '', '', '', '', '', '', ''],
-                ['', '', '', '', '', '', '', '', ''],
-                ['', '', '', '', '', '', '', '', ''],
-                ['', '', '', '', '', '', '', '', ''],
-                ['', '', '', '', '', '', '', '', ''],
-                ['', '', '', '', '', '', '', '', ''],
-                ['', '', '', '', '', '', '', '', ''],
-                ['', '', '', '', '', '', '', '', ''],
-                ['', '', '', '', '', '', '', '', '']
-            ];
-        }
-        
-        populateBoard();
-        greyStartingBoxes();
-    }  
-}
-
-
-
-function easyBoard() {
-    boardArr = [
+let boardLayouts = {
+    'empty': [
+        ['', '', '', '', '', '', '', '', ''],
+        ['', '', '', '', '', '', '', '', ''],
+        ['', '', '', '', '', '', '', '', ''],
+        ['', '', '', '', '', '', '', '', ''],
+        ['', '', '', '', '', '', '', '', ''],
+        ['', '', '', '', '', '', '', '', ''],
+        ['', '', '', '', '', '', '', '', ''],
+        ['', '', '', '', '', '', '', '', ''],
+        ['', '', '', '', '', '', '', '', '']
+    ],
+    'easy': [
         ['', '', '', '2', '', '1', '8', '4', ''],
         ['', '8', '', '', '3', '', '', '', ''],
         ['2', '', '9', '', '', '6', '', '3', '5'],
@@ -156,15 +100,33 @@ function easyBoard() {
         ['8', '4', '', '9', '', '', '3', '', '2'],
         ['', '', '', '', '7', '', '', '8', ''],
         ['', '6', '2', '3', '', '8', '', '', '']
-    ];
-    populateBoard();
-    greyStartingBoxes();
-};
-easyBoard();
+    ],
+    'medium': [
+        ['', '2', '', '6', '', '8', '', '', ''],
+        ['5', '8', '', '', '', '9', '7', '', ''],
+        ['', '', '', '', '4', '', '', '', ''],
+        ['3', '7', '', '', '', '', '5', '', ''],
+        ['6', '', '', '', '', '', '', '', '4'],
+        ['', '', '8', '', '', '', '', '1', '3'],
+        ['', '', '', '', '2', '', '', '', ''],
+        ['', '', '9', '8', '', '', '', '3', '6'],
+        ['', '', '', '3', '', '6', '', '9', '']
+    ],
+    'hard': [
+        ['', '1', '', '', '8', '', '', '', ''],
+        ['', '', '2', '4', '', '', '9', '', ''],
+        ['', '', '8', '6', '', '', '', '', '7'],
+        ['2', '7', '', '', '', '', '', '1', ''],
+        ['', '4', '1', '', '5', '', '7', '2', ''],
+        ['', '8', '', '', '', '', '', '6', '9'],
+        ['4', '', '', '', '', '5', '2', '', ''],
+        ['', '', '6', '', '', '9', '3', '', ''],
+        ['', '', '', '', '4', '', '', '9', '']
+    ]
+}
 
 
 
-//populate HTML board according to board array ie the backend board
 function populateBoard() {
     for (let i = 0; i < boardArr.flat().length; i++) {
         boxes[i].value = boardArr.flat()[i];
@@ -172,7 +134,8 @@ function populateBoard() {
 }
 
 
-function greyStartingBoxes() {
+
+function greyBoxes() {
     for (let i = 0; i < boardArr.flat().length; i++) {
         boxes[i].disabled = false;
         if (boardArr.flat()[i] !== '') {
@@ -185,36 +148,36 @@ function greyStartingBoxes() {
 }
 
 
+
 //---------------------------------------- BUTTON SELECTORS ----------------------------------------
 
 
 
 $("document").ready(function() { //onload, allow user to choose difficulty
     
-    // const inputOptions = new Promise((resolve) => {
-    //     setTimeout(() => {
-    //         resolve({
-    //             '#ff0000': 'Red',
-    //             '#00ff00': 'Green',
-    //             '#0000ff': 'Blue'
-    //         })
-    //     }, 1000)
-    // })
+    const inputOptions = {
+        'easy': 'Easy',
+        'medium': 'Medium',
+        'hard': 'Hard',
+        'empty': 'Custom'
+    }
       
-    // const { value: color } = await Swal.fire({
-    //     title: 'Select color',
-    //     input: 'radio',
-    //     inputOptions: inputOptions,
-    //     inputValidator: (value) => {
-    //         if (!value) {
-    //             return 'You need to choose something!'
-    //         }
-    //     }
-    // })
-      
-    // if (color) {
-    //     Swal.fire({ html: `You selected: ${color}` })
-    // }
+    const { value: color } = Swal.fire({
+        title: 'Select difficulty',
+        input: 'radio',
+        inputOptions: inputOptions,
+        inputValidator: (value) => {
+            if (value) {
+                gameDifficulty = value;
+                boardArr = JSON.parse(JSON.stringify(boardLayouts[gameDifficulty]));
+                populateBoard();
+                greyBoxes();
+            }
+            else {
+                return 'You need to choose something!'
+            }
+        }
+    })
 
 });
 
@@ -226,10 +189,43 @@ let newButton = document.getElementById('difficulty'),
     resetButton = document.getElementById('reset');
 
 
+
 newButton.addEventListener('click', function() {
-    let board = new Board('empty');
-    board.populate();
-})
+    const inputOptions = {
+        'easy': 'Easy',
+        'medium': 'Medium',
+        'hard': 'Hard',
+        'empty': 'Custom'
+    }
+      
+    const { value: color } = Swal.fire({
+        title: 'Select difficulty',
+        input: 'radio',
+        inputOptions: inputOptions,
+        inputValidator: (value) => {
+            if (value) {
+                gameDifficulty = value;
+                boardArr = JSON.parse(JSON.stringify(boardLayouts[gameDifficulty]));
+                populateBoard();
+                greyBoxes();
+            }
+            else {
+                return 'You need to choose something!'
+            }
+        }
+    });
+});
+
+
+
+let modal = document.getElementById("modal__win"); //modal for winning screen
+
+window.addEventListener('click', function(e) {
+    if (e.target == modal) {
+        modal.style.display = "none";
+    }
+});
+
 
 
 checkButton.addEventListener('click', function() {   
@@ -242,10 +238,13 @@ checkButton.addEventListener('click', function() {
         Swal.fire({
             position: 'center',
             icon: 'error',
-            title: `You've got a mistake somewhere`,
+            title: `You've got a mistake somewhere.`,
             showConfirmButton: false,
             timer: 1200
         })
+    }
+    else if (boardState == 0 && boardArr.flat().map(x => (/\d/).test(x)).filter(x => x == true).length == 81) { //feels needlessly complicated; alternatively, i could change '' to '.' so that i can use a short includes()
+        modal.style.display = 'block';
     }
     else {
         Swal.fire({
@@ -259,24 +258,6 @@ checkButton.addEventListener('click', function() {
 });
 
 
-solveButton.addEventListener('click', function() {    
-    Swal.fire({
-        title: 'Giving up already?',
-        text: "This will show you the completed board",
-        icon: 'question',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'End it'
-        })
-        .then((result) => {
-            if (result.value) {
-                solve();
-                populateBoard();
-            }
-        });   
-});
-
 
 resetButton.addEventListener('click', function() {
     Swal.fire({
@@ -289,10 +270,48 @@ resetButton.addEventListener('click', function() {
         confirmButtonText: 'Yes, reset it!'
         })
         .then((result) => {
-            if (result.value) {
-            easyBoard();
+            if (result.isConfirmed) {
+                boardArr = JSON.parse(JSON.stringify(boardLayouts[gameDifficulty]));
+                populateBoard();
+                greyBoxes();
             }
         });
+});
+
+
+
+solveButton.addEventListener('click', function() {
+    boardState = 0;
+    checkRows();
+    checkCols();
+    checkLargeBox();
+    if (boardState == 0) {
+        Swal.fire({
+            title: 'Giving up already?',
+            text: "This will show you the completed board",
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'End it'
+            })
+            .then((result) => {
+                if (result.isConfirmed) {
+                    solve();
+                    populateBoard();
+                }
+            }); 
+    }
+    else {
+        Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: `Please make sure there are no errors on the board first!`,
+            showConfirmButton: false,
+            timer: 1500
+        })
+    }
+      
 });
 
 
@@ -300,6 +319,8 @@ resetButton.addEventListener('click', function() {
 //---------------------------------------- BOARD VERIFICATION ----------------------------------------
 
 
+
+//improve/combine functions; too much repetition
 
 function checkRows() {
     for (let i = 0; i < 9; i++) {

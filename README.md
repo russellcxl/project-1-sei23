@@ -4,14 +4,14 @@
 
 
 
-### Basic:
-1. Create board (UI and array for checking)
-2. Attach listeners
-3. Create button for starting a new game / resetting board
-4. Populate UI board using values from the backend array
+### Basic (DONE):
+1. Create board (UI and backend array for checking/solving purposes)
+2. Attach listeners to UI board
+3. Create buttons for starting a new game, resetting the board, etc.
+4. Create function that populates board based on backend array
 
 
-### Further:
+### Further (DONE):
 1. Create checker to see if all input numbers are correct i.e. does not repeat in the row, the column and the 9x9 box the number is in.
 
 2. Create solver
@@ -24,14 +24,19 @@
 
     - Visualisation of the function:
 
-    ![https://en.wikipedia.org/wiki/Backtracking#/media/File:Sudoku_solved_by_bactracking.gif](https://en.wikipedia.org/wiki/Backtracking#/media/File:Sudoku_solved_by_bactracking.gif)
+    ![https://upload.wikimedia.org/wikipedia/commons/8/8c/Sudoku_solved_by_bactracking.gif](https://upload.wikimedia.org/wikipedia/commons/8/8c/Sudoku_solved_by_bactracking.gif)
+
+3. Add a win-screen using a modal
 
 
-### Further: 
-1. Add various animations -- numbers falling into board, shaking the wrong numbers when check button is clicked, etc
-2. Add background music??
-3. Make pretty the entire set
-4. Give options to draw a '?' or multiple numbers in a box. Also allow user to grey out boxes if they are setting their own puzzle.
+### Further 2: 
+1. Create options to grey out boxes (if using a customised board), to input '?' or multiple numbers within a box, etc.
+2. Improve checking function such that it points out the invalid numbers
+
+
+### Further 3: 
+1. Animate board such that when the solve button is clicked, the numbers appear one by one, or when the reset button is clicked, the numbers vaporise
+2. Add other animations which I have not yet thought of
 
 
 ### References: 
