@@ -34,9 +34,9 @@
 2. Improve checking function such that it points out the invalid numbers
 
 
-### Further 3: 
-1. Animate board such that when the solve button is clicked, the numbers appear one by one, or when the reset button is clicked, the numbers vaporise
-2. Add other animations which I have not yet thought of
+### Further 3 (DONE): 
+1. Animate board such that when the solve button is clicked, the numbers appear one by one
+2. Add animation at the side to indicate when invalid numbers are placed on the board
 
 
 ### References: 
@@ -48,3 +48,5 @@
     - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set
     - https://www.geeksforgeeks.org/sudoku-backtracking-7/
     - https://stackoverflow.com/questions/42736648/sudoku-solver-in-js
+- For animated ghost
+    - https://codepen.io/Danimalphantom/pen/jOWwypN?editors=0110

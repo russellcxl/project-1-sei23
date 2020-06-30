@@ -1,17 +1,32 @@
 #header {
-    display: flex;
-    justify-content: center;
+    display: block;
+    text-align: center;
     margin-top: 40px;
     margin-bottom: 30px;
+    margin-right: auto;
+    margin-left: auto;
     background: transparent;
     font-size: 100px;
+    color: #ffd88f;
+    width: 22rem;
 }
 
 h1 {
     font-size: 100px;
-    color: #ffd88f;
-    outline-color: whitesmoke;
+    opacity: 1;
 }
+
+/* h1:hover:after {
+    content: "with a friend";
+} */
+
+p {
+    display: none;
+}
+
+
+/* main grid */
+
 
 body {
     margin: 20px 20% 0 20%;
@@ -70,6 +85,7 @@ button:focus {
 }
 
 
+
 /* MODAL */
 
 #modal__win {
@@ -91,3 +107,159 @@ button:focus {
     padding: 20px;
     width: 45%; /* Could be more or less, depending on screen size */
 }
+
+
+
+/* GHOST (took reference from https://codepen.io/Danimalphantom/pen/jOWwypN)*/
+
+.ghost__container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 70px;
+}
+
+
+.body {
+    width: 200px;
+    height: 360px;
+    background: whitesmoke;
+    border-radius: 5rem 5rem 0 0;
+    box-shadow: inset -1.25rem;
+    animation: ghostFloat 2s ease-in-out infinite;
+    display: flex;
+    align-items: flex-end;
+}
+
+.face {
+    position: absolute;
+    top: 4.2rem;
+    left: 2.8rem;
+    display: flex;
+    flex-direction: row;
+    padding: 0 1rem 0 1rem;
+}
+
+.eyes {
+    background: darkslategray;
+    border-radius: 50%;
+    animation: eyesBlink 3s ease infinite;
+}
+
+.eyes__left {
+    width: 1.9rem;
+    height: 2.6rem;
+    margin-right: 1.5rem;
+}
+
+.eyes__right {
+    width: 1.8rem;
+    height: 2.5rem;
+}
+
+.mouth {
+    position: absolute;
+    top: 3rem;
+    left: .9rem;
+    background: darkslategray;
+    width: 5rem;
+    height: 2.1rem;
+    border-radius: 50%;
+}
+
+.inner__mouth {
+    position: absolute;
+    top: -0.5rem; 
+    left: -0.4rem;
+    background: whitesmoke;
+    width: 6rem;
+    height: 2.2rem;
+    border-radius: 50%;
+}
+
+.bottom {
+    position: absolute;
+    display: flex;
+    width: 100%;
+    top: 17rem;
+}
+
+.circle {
+    background: whitesmoke;
+    border-radius: 0 0 5rem 5rem;
+    width: 2rem;
+    height: 2rem;
+}
+
+.circle__grey {
+    background: lightgrey;
+    border-radius: 5rem 5rem 5rem 5rem;
+    width: 2rem;
+    height: 2rem;
+    box-shadow: inset 0rem 0.3rem 0 whitesmoke;
+}
+
+.shadow {
+    background: black;
+    width: 10rem;
+    height: 1rem;
+    margin-top: 2rem;
+    border-radius: 50%;
+    opacity: 0.4;
+    animation: shadowAnimation 2s ease-in-out infinite;
+}
+
+
+/* keyframes */
+
+@keyframes ghostFloat {
+    0% 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-1rem);
+    }
+}
+
+@keyframes eyesBlink {
+    0%, 30%, 40%, 100% {
+        transform: scale(1);
+    }
+    35% {
+        transform: scale(1,0);
+    }
+}
+
+
+@keyframes mouthSad {
+   100% {
+       top: 4.5rem;
+
+   } 
+}
+
+@keyframes mouthInnerSad {
+    100% {
+        top: 0.4rem;
+    }
+}
+
+@keyframes eyesSad {
+    100% {
+        border-radius: 20%;
+        margin-top: 1rem;
+        height: 1rem;
+    }
+}
+
+@keyframes shadowAnimation {
+    0%, 100% {
+        opacity: 0.5;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.4;
+        transform: scale(0.9);
+    }
+}
+

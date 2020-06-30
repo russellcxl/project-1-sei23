@@ -1,9 +1,3 @@
-//include icons from FONTAWESOME
-//include alerts from SWEETALERT2
-//include animations from ANIMATE STYLE
-//make title glow with JQUERY
-
-
 let boardState = 0; //0 = no errors, 1 = there are errors
 let boardArr = [];
 
@@ -64,8 +58,23 @@ for (let i = 5 ; i < 78 ; i+=9) {
 //updating boardArr when user inputs numbers
 
 for (let i = 0; i < boxes.length; i++) {
-    boxes[i].addEventListener('change', function() {
+    boxes[i].addEventListener('input', function() {
         boardArr[Math.floor(i/9)][i%9] = boxes[i].value;
+        boardState = 0;
+        checkRows();
+        checkCols();
+        checkLargeBox();
+        if (boardState == 1) {
+            // $(".eyes").css("animation-fill-mode", "forwards");
+            $(".eyes").css("animation", "eyesSad 1s ease-out forwards");
+            $(".mouth").css("top", "4.5rem");
+            $(".inner__mouth").css("top", "0.4rem");
+        }
+        else {
+            $(".eyes").css("animation", "eyesBlink 3s ease infinite");
+            $(".mouth").css("top", "3rem");
+            $(".inner__mouth").css("top", "-0.5rem");
+        }
     });
 }
 
@@ -135,6 +144,23 @@ function populateBoard() {
 
 
 
+//populate board through the solve button
+function populateBoard2() {
+    let i = 0;
+    let start = setInterval(() => {
+        if (i < 80) {
+            boxes[i].value = boardArr[Math.floor(i / 9)][i % 9];
+            boxes[i+1].disabled === true ? i+=2 : i++;
+        }
+        else {
+            boxes[i].value = boardArr[Math.floor(i / 9)][i % 9];
+            clearInterval(start);
+        }
+    }, 25);
+}
+
+
+
 function greyBoxes() {
     for (let i = 0; i < boardArr.flat().length; i++) {
         boxes[i].disabled = false;
@@ -174,7 +200,7 @@ $("document").ready(function() { //onload, allow user to choose difficulty
                 greyBoxes();
             }
             else {
-                return 'You need to choose something!'
+                return 'Choose something'
             }
         }
     })
@@ -245,6 +271,9 @@ checkButton.addEventListener('click', function() {
     }
     else if (boardState == 0 && boardArr.flat().map(x => (/\d/).test(x)).filter(x => x == true).length == 81) { //feels needlessly complicated; alternatively, i could change '' to '.' so that i can use a short includes()
         modal.style.display = 'block';
+        setTimeout(function() {
+            modal.style.display = 'none';
+        }, 3000);
     }
     else {
         Swal.fire({
@@ -289,7 +318,6 @@ solveButton.addEventListener('click', function() {
         Swal.fire({
             title: 'Giving up already?',
             text: "This will show you the completed board",
-            icon: 'question',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
@@ -298,7 +326,7 @@ solveButton.addEventListener('click', function() {
             .then((result) => {
                 if (result.isConfirmed) {
                     solve();
-                    populateBoard();
+                    populateBoard2();
                 }
             }); 
     }
@@ -320,14 +348,30 @@ solveButton.addEventListener('click', function() {
 
 
 
-//improve/combine functions; too much repetition
+// // WIP
+//
+// function revealInvalid(board, row, col) {
+//     if (boardArr[row][col] != '') {
+//         let val = boardArr[row][col];
+//         boardArr[row][col] = '';
+//         if (boardArr[row].includes(val)) {
+//             console.log('works');
+//             boxes[row * 9 + col].style.backgroundColor = '#D21F3C';
+//             boxes[row * 9 + boardArr[row].indexOf(val)].style.backgroundColor = '#D21F3C';
+//         }
+//         boardArr[row][col] = val;
+//     }
+//     else console.log('doesnt work')
+// }
 
-function checkRows() {
+
+
+function checkRows(x = boardArr) {
     for (let i = 0; i < 9; i++) {
-        let arr = boardArr[i].filter(x => x.toString().match(/\d/)); 
+        let arr = x[i].filter(x => x.toString().match(/\d/)); 
         if (arr.length != new Set(arr).size) {
             boardState = 1;
-            //console.log('wrong');
+            // console.log('wrong');
         }
     }
 }
@@ -343,14 +387,7 @@ function checkCols() {
         }
         columns.push(tempArr);    
     }
-
-    for (let i = 0; i < 9; i++) {
-        let arr = columns[i].filter(x => x.toString().match(/\d/));
-        if (arr.length != new Set(arr).size) {
-            boardState = 1;
-            //console.log('wrong');
-        }
-    }
+    checkRows(columns);
 }
 
 
@@ -366,14 +403,7 @@ function checkLargeBox() {
         }
         largeBoxes.push(tempArr);
     }
-
-    for (let i = 0; i < 9; i++) {
-        let arr = largeBoxes[i].filter(x => x.toString().match(/\d/));
-        if (arr.length != new Set(arr).size) {
-            boardState = 1;
-            //console.log('wrong');
-        }
-    }
+    checkRows(largeBoxes);
 }
 
 
@@ -387,7 +417,7 @@ function checkLargeBox() {
 // [6-8][0-2]  [6-8][3-5]  [6-8][6-8]
 
 
-// function isCorrect(row, col, val) { //using this method causes massive lag; due to stacking of functions maybe?
+// function isCorrect(row, col, val) { //nesting functions causes lag?
 //     boardArr[row][col] = `${val}`;
 //     checkRows();
 //     checkCols();
@@ -447,13 +477,4 @@ function solve() {
     }
     return true;
 }
-
-
-
-
-// ------------------------------------ ANIMATIONS ------------------------------------ //
-
-
-
-
 
