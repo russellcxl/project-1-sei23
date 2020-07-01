@@ -15,7 +15,6 @@
 1. Create checker to see if all input numbers are correct i.e. does not repeat in the row, the column and the 9x9 box the number is in.
 
 2. Create solver
-
     - Loop through array to find empty boxes
     - Loop through 1-9 and use checker to admit the first valid number
     - After admitting valid number, call the function again so that it moves to the next empty box
@@ -29,14 +28,19 @@
 3. Add a win-screen using a modal
 
 
-### Further 2: 
+### Further 2 (DONE): 
+1. Add various animations:
+    - Animated ghost to indicate if invalid number has been placed (click to make it disappear)
+    - Title does a wave on hover
+    - Numbers appear sequentially on the board when solve button (I GIVE UP) is clicked
+
+
+### Further 3: 
 1. Create options to grey out boxes (if using a customised board), to input '?' or multiple numbers within a box, etc.
 2. Improve checking function such that it points out the invalid numbers
 
 
-### Further 3 (DONE): 
-1. Animate board such that when the solve button is clicked, the numbers appear one by one
-2. Add animation at the side to indicate when invalid numbers are placed on the board
+
 
 
 ### References: 

@@ -10,6 +10,62 @@ for (let i = 0 ; i < 9 ; i++) {
 
 
 
+// ------------------------------------ ANIMATIONS ------------------------------------ //
+
+
+
+$("#header").mouseenter(function() {
+	new Promise((resolve) => {
+		resolve($(".char").css("animation", "textWave 1.5s ease-in-out calc(0.05s * var(--char-index))"));
+	})
+	.then(() => {
+		setTimeout(function() {
+			$(".char").css("animation", "none");
+		}, 2000);
+	});    
+});
+
+
+$(".body").click(function() {
+	if ($(this).css("opacity") == 0) {
+		$(this).fadeTo(2000, 1);
+	}
+	else {
+		$(this).fadeTo(2000, 0);
+	}
+})
+
+
+
+// ------------------------------------ MODAL ------------------------------------ //
+
+
+
+let modal = document.getElementById("modal__win"); //modal for winning screen
+
+
+window.addEventListener('click', function(e) {
+    if (e.target == modal) {
+        modal.style.display = "none";
+    }
+});
+
+
+function showModal() {
+	return new Promise((resolve) => {
+		setTimeout(function() {
+			resolve(modal.style.display = "block");
+		}, 500);
+	})
+	.then(function() {
+		setTimeout(function () {
+			modal.style.display = "none";
+		}, 3000);
+	});
+}
+
+
+
 //---------------------------------------- CREATING UI BOARD ----------------------------------------
 
 
@@ -64,20 +120,29 @@ for (let i = 0; i < boxes.length; i++) {
         checkRows();
         checkCols();
         checkLargeBox();
-        if (boardState == 1) {
-            // $(".eyes").css("animation-fill-mode", "forwards");
-            $(".eyes").css("animation", "eyesSad 1s ease-out forwards");
-            $(".mouth").css("top", "4.5rem");
-            $(".inner__mouth").css("top", "0.4rem");
-        }
-        else {
-            $(".eyes").css("animation", "eyesBlink 3s ease infinite");
-            $(".mouth").css("top", "3rem");
-            $(".inner__mouth").css("top", "-0.5rem");
-        }
+		boardState == 1 ? sadFace() 
+		: boardState == 0 && boardArr.map(row => row.reduce((a,b) => parseInt(a) + parseInt(b))).reduce((a,b) => a + b) == 405 ? showModal()
+		: happyFace();
     });
 }
 
+
+
+// ------------------------------------ GHOST EXPRESSIONS ------------------------------------ //
+
+
+
+function sadFace() {
+    $(".eyes").css("animation", "eyesSad 1s ease-out forwards");
+    $(".mouth").css("top", "4.6rem");
+    $(".inner__mouth").css("top", "0.4rem");
+}
+
+function happyFace() {
+    $(".eyes").css("animation", "eyesBlink 3s ease infinite");
+    $(".mouth").css("top", "3rem");
+    $(".inner__mouth").css("top", "-0.5rem");
+}
 
 
 
@@ -140,6 +205,7 @@ function populateBoard() {
     for (let i = 0; i < boardArr.flat().length; i++) {
         boxes[i].value = boardArr.flat()[i];
     }
+    happyFace();
 }
 
 
@@ -151,12 +217,16 @@ function populateBoard2() {
         if (i < 80) {
             boxes[i].value = boardArr[Math.floor(i / 9)][i % 9];
             boxes[i+1].disabled === true ? i+=2 : i++;
-        }
+		}
+		//for filling last number on the board, clearing the interval, and revealing the celebratory modal gif
         else {
             boxes[i].value = boardArr[Math.floor(i / 9)][i % 9];
-            clearInterval(start);
+			clearInterval(start);
+			showModal();
         }
-    }, 25);
+	}, 25);
+	happyFace();
+	
 }
 
 
@@ -244,50 +314,6 @@ newButton.addEventListener('click', function() {
 
 
 
-let modal = document.getElementById("modal__win"); //modal for winning screen
-
-window.addEventListener('click', function(e) {
-    if (e.target == modal) {
-        modal.style.display = "none";
-    }
-});
-
-
-
-checkButton.addEventListener('click', function() {   
-    boardState = 0;
-    checkRows();
-    checkCols();
-    checkLargeBox();
-
-    if (boardState == 1) {
-        Swal.fire({
-            position: 'center',
-            icon: 'error',
-            title: `You've got a mistake somewhere.`,
-            showConfirmButton: false,
-            timer: 1200
-        })
-    }
-    else if (boardState == 0 && boardArr.flat().map(x => (/\d/).test(x)).filter(x => x == true).length == 81) { //feels needlessly complicated; alternatively, i could change '' to '.' so that i can use a short includes()
-        modal.style.display = 'block';
-        setTimeout(function() {
-            modal.style.display = 'none';
-        }, 3000);
-    }
-    else {
-        Swal.fire({
-            position: 'center',
-            icon: 'success',
-            title: 'All good!',
-            showConfirmButton: false,
-            timer: 900
-        })
-    }
-});
-
-
-
 resetButton.addEventListener('click', function() {
     Swal.fire({
         title: 'Are you sure?',
@@ -371,7 +397,6 @@ function checkRows(x = boardArr) {
         let arr = x[i].filter(x => x.toString().match(/\d/)); 
         if (arr.length != new Set(arr).size) {
             boardState = 1;
-            // console.log('wrong');
         }
     }
 }
@@ -462,7 +487,7 @@ function solve() {
             if (boardArr[i][j] == '') {
                 for (let k = 1; k <= 9; k++) {
                     if (isCorrect(i, j, k)) {
-                        boardArr[i][j] = k;
+                        boardArr[i][j] = `${k}`;
                         if (solve()) {
                             return true;
                         }
@@ -478,3 +503,13 @@ function solve() {
     return true;
 }
 
+
+
+// ------------------------------------ PUZZLE GENERATOR ------------------------------------ //
+
+/*
+count = 0
+select random squares on board
+run it through isCorrect and admit first valid number
+repeat until count reaches desired number
+*/

@@ -6,42 +6,46 @@
         <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css">
         <link rel="stylesheet" href="style.css">
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="splitting js/splitting.css">
+
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.15.2/dist/sweetalert2.all.min.js"></script> 
-        
+        <script src="splitting js/splitting.js"></script>
     </head>
     
 
-    <body style="background: transparent;">
+    <body style="background: transparent; margin: auto;">
         <div id="header">
-            <h1>SUDOKU!</h1><p>hi</p>
+            <h1 data-splitting>SUDOKU!</h1>
         </div>
 
         <div class="main-grid">
 
             <div style="float: none;" class="ghost__container">
                     <div class="ghost">
-                      <div class="body">
-                        <div class="face">
-                          <div class="eyes eyes__left"></div>
-                          <div class="eyes eyes__right"></div>
-                          <div class="mouth">
-                              <div class="inner__mouth"></div>
-                          </div>
+                        <div class="body">
+                            
+                            <div class="face">
+                            <div class="eyes eyes__left"></div>
+                            <div class="eyes eyes__right"></div>
+                            <div class="mouth">
+                                <div class="inner__mouth"></div>
+                            </div>
+                            </div>
+                            
+                            <div class="bottom">
+                            <div class="circle"></div>
+                            <div class="circle__grey"></div>
+                            <div class="circle"></div>
+                            <div class="circle__grey"></div>
+                            <div class="circle"></div>
+                            </div>
+
                         </div>
                         
-                        <div class="bottom">
-                          <div class="circle"></div>
-                          <div class="circle__grey"></div>
-                          <div class="circle"></div>
-                          <div class="circle__grey"></div>
-                          <div class="circle"></div>
-                        </div>
-
-                      </div>
-                      <div class="shadow"></div>
+                        <div class="shadow"></div>
                     </div>           
             </div>
 
@@ -54,15 +58,13 @@
 
             <div style="float: none;" id="buttons">
                 <button id="difficulty">NEW BOARD</button>
-                <button id="check">CHECK BOARD</button>
-                <button id="reset">RESET BOARD</button>
+                <button id="reset">RESET</button>
                 <button id="solve">I GIVE UP</button>
             </div>
         </div>
-        
-        
-        
+ 
     </body>
 
     <script src="script.js"></script>
+    <script>Splitting(); </script>
 </html>

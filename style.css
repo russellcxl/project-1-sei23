@@ -1,3 +1,7 @@
+body {
+    margin: auto;
+}
+
 #header {
     display: block;
     text-align: center;
@@ -11,17 +15,22 @@
     width: 22rem;
 }
 
-h1 {
+h1 .char {
     font-size: 100px;
     opacity: 1;
 }
 
-/* h1:hover:after {
-    content: "with a friend";
-} */
 
-p {
-    display: none;
+@keyframes textWave {
+    0%, 100% {
+        transform: translateY(0rem);
+    }
+    30% {
+        transform: translateY(-1rem);
+    }
+    70% {
+        transform: translateY(0.5rem);
+    }
 }
 
 
@@ -36,8 +45,8 @@ body {
 
 .main-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 50px;
+    grid-template-columns: 1fr 0fr 1fr;
+    gap: 80px;
 }
 
 
@@ -45,7 +54,8 @@ table {
     border: 5px solid black;
     width: 450px;
     height: 450px;
-    margin: 0 auto;
+    margin-right: auto;
+    margin-left: auto;
 }
 
 #buttons {
@@ -114,9 +124,9 @@ button:focus {
 
 .ghost__container {
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
     align-items: center;
-    padding-left: 70px;
+    padding-right: 50px;
 }
 
 
@@ -263,3 +273,11 @@ button:focus {
     }
 }
 
+@keyframes ghostFlyUp {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10rem);
+    }
+}
