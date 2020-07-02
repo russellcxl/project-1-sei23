@@ -83,7 +83,7 @@ for (let i = 0 ; i < 9 ; i++) {
         newInput.maxLength = 1;
         newInput.setAttribute("onfocus", "this.select();"); //did not work with newInput.onfocus ??
         newInput.oninput = function() {
-            if (!this.value.match(/[0-9]/g)) this.value = '';
+            if (!this.value.match(/[1-9]/g)) this.value = '';
         }
         newInput.style = 'height: 50px; width: 50px; border: 1px solid black; outline: none; font-size: 24px; text-align: center; font-weight: 700;';
                 newRow.appendChild(newCell);
@@ -501,6 +501,35 @@ function solve() {
         }
     }
     return true;
+}
+
+
+
+//solves by putting in all the confirmed numbers first; later, by trial and error
+function solveLikeHuman() {
+    let solvedAny = false;
+    for (let i = 0; i < 9; i++) {
+        for (let j = 0; j < 9; j++) {
+            if (boardArr[i][j] == '') {
+                let validNumbers = [];
+                for (let k = 1; k <= 9; k++) {
+                    if (isCorrect(i, j, k)) {
+                        validNumbers.push([i, j, k]);
+                    }
+                }
+                if (validNumbers.length === 1) {
+                    boardArr[validNumbers[0][0]][validNumbers[0][1]] = `${validNumbers[0][2]}`;
+                    solvedAny = true;
+                }
+            }
+        }
+    }
+    if (solvedAny) {
+        solveLikeHuman();
+    }
+    else {
+        return solve();
+    }
 }
 
 
