@@ -54,3 +54,7 @@
     - https://stackoverflow.com/questions/42736648/sudoku-solver-in-js
 - For animated ghost
     - https://codepen.io/Danimalphantom/pen/jOWwypN?editors=0110
+
+
+### DISCLAIMER:
+I am not monetizing, nor do I intend to, this program. This is simply a game created for a course project. If you are the owner of the music used and would like it to be removed, please send me a message at russellcxl@gmail.com.
