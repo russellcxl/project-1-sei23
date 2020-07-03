@@ -3,8 +3,9 @@
     <head>
         <meta charset="UTF-8">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-        <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css">
         <link rel="stylesheet" href="style.css">
         <link rel="stylesheet" href="splitting js/splitting.css">
 
@@ -17,6 +18,17 @@
     
 
     <body style="background: transparent; margin: auto;">
+
+        <!-- <a href="#">
+            <span class="fas fa-volume-up"></span>
+        </a> -->
+
+        <audio controls class="music__bar">
+            <source class="music__current" type="audio/mp3" src="audio/waltz.mp3">
+        </audio>
+
+        <button class="music__forward fas fa-step-forward"></button>
+        
         <div id="header">
             <h1 data-splitting>SUDOKU!</h1>
         </div>
@@ -28,19 +40,19 @@
                         <div class="body">
                             
                             <div class="face">
-                            <div class="eyes eyes__left"></div>
-                            <div class="eyes eyes__right"></div>
-                            <div class="mouth">
-                                <div class="inner__mouth"></div>
-                            </div>
+                                <div class="eyes eyes__left"></div>
+                                <div class="eyes eyes__right"></div>
+                                <div class="mouth">
+                                    <div class="inner__mouth"></div>
+                                </div>
                             </div>
                             
                             <div class="bottom">
-                            <div class="circle"></div>
-                            <div class="circle__grey"></div>
-                            <div class="circle"></div>
-                            <div class="circle__grey"></div>
-                            <div class="circle"></div>
+                                <div class="circle"></div>
+                                <div class="circle__grey"></div>
+                                <div class="circle"></div>
+                                <div class="circle__grey"></div>
+                                <div class="circle"></div>
                             </div>
 
                         </div>

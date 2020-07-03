@@ -223,7 +223,7 @@ button:focus {
 /* keyframes */
 
 @keyframes ghostFloat {
-    0% 100% {
+    0%, 100% {
         transform: translateY(0);
     }
     50% {
@@ -280,4 +280,15 @@ button:focus {
     50% {
         transform: translateY(-10rem);
     }
+}
+
+.music__bar {
+    padding: 5px;
+}
+
+.music__forward {
+    width: 40px;
+    height: 40px;
+    padding: 5px;
+    border-radius: 100%;
 }

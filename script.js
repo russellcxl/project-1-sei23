@@ -121,7 +121,7 @@ for (let i = 0; i < boxes.length; i++) {
         checkCols();
         checkLargeBox();
 		boardState == 1 ? sadFace() 
-		: boardState == 0 && boardArr.map(row => row.reduce((a,b) => parseInt(a) + parseInt(b))).reduce((a,b) => a + b) == 405 ? showModal()
+		: boardState == 0 && boardArr.flat().reduce((a,b) => parseInt(a) + parseInt(b) ) == 405 ? showModal()
 		: happyFace();
     });
 }
@@ -235,7 +235,6 @@ function greyBoxes() {
     for (let i = 0; i < boardArr.flat().length; i++) {
         boxes[i].disabled = false;
         if (boardArr.flat()[i] !== '') {
-            // boxes[i].style.backgroundColor = 'grey';
             boxes[i].disabled = true;
             boxes[i].style.fontWeight = 700;
             boxes[i].style.color = 'black';
@@ -249,7 +248,7 @@ function greyBoxes() {
 
 
 
-$("document").ready(function() { //onload, allow user to choose difficulty
+$("document").ready(function() {
     
     const inputOptions = {
         'easy': 'Easy',
@@ -542,3 +541,19 @@ select random squares on board
 run it through isCorrect and admit first valid number
 repeat until count reaches desired number
 */
+
+
+// ------------------------------------ AUDIO ------------------------------------ //
+
+
+let songs = ["waltz", "danube", "trololo", "danzon", "merry", "pas"];
+let audio = document.querySelector(".music__bar");
+audio.volume = 0.25;
+
+$(".music__forward").click(function() {
+    $(".music__current").attr("src", `audio/${songs[Math.floor(Math.random() * songs.length)]}.mp3`);
+    audio.load();
+    audio.play();
+});
+
+
