@@ -2,7 +2,7 @@
 
 ## SEI-23: Project 1
 
-
+![Game Screenshot](images/game_screenshot.PNG)
 
 ### Basic (DONE):
 1. Create board (UI and backend array for checking/solving purposes)
@@ -23,7 +23,7 @@
 
     - Visualisation of the function:
 
-    ![https://upload.wikimedia.org/wikipedia/commons/8/8c/Sudoku_solved_by_bactracking.gif](https://upload.wikimedia.org/wikipedia/commons/8/8c/Sudoku_solved_by_bactracking.gif)
+    ![Suduko backtracking](https://upload.wikimedia.org/wikipedia/commons/8/8c/Sudoku_solved_by_bactracking.gif)
 
 3. Add a win-screen using a modal
 
