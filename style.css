@@ -191,21 +191,22 @@ button:focus {
     position: absolute;
     display: flex;
     width: 100%;
-    top: 17rem;
+    bottom: -22px;
+    justify-content: space-between;
 }
 
 .circle {
     background: whitesmoke;
     border-radius: 0 0 5rem 5rem;
-    width: 2rem;
-    height: 2rem;
+    width: 2.5rem;
+    height: 2.5rem;
 }
 
 .circle__grey {
     background: lightgrey;
     border-radius: 5rem 5rem 5rem 5rem;
-    width: 2rem;
-    height: 2rem;
+    width: 2.5rem;
+    height: 2.5rem;
     box-shadow: inset 0rem 0.3rem 0 whitesmoke;
 }
 
