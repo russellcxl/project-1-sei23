@@ -12,12 +12,13 @@ body {
     background: transparent;
     font-size: 100px;
     color: #ffd88f;
-    width: 22rem;
+    width: 460px;
 }
 
 h1 .char {
     font-size: 100px;
     opacity: 1;
+    font-weight: 600;
 }
 
 
@@ -131,10 +132,10 @@ button:focus {
 
 
 .body {
-    width: 200px;
+    width: 190px;
     height: 360px;
     background: whitesmoke;
-    border-radius: 5rem 5rem 0 0;
+    border-radius: 10rem 10rem 0 0;
     box-shadow: inset -1.25rem;
     animation: ghostFloat 2s ease-in-out infinite;
     display: flex;
@@ -143,8 +144,8 @@ button:focus {
 
 .face {
     position: absolute;
-    top: 4.2rem;
-    left: 2.8rem;
+    top: 85px;
+    left: 65px;
     display: flex;
     flex-direction: row;
     padding: 0 1rem 0 1rem;
@@ -212,9 +213,9 @@ button:focus {
 
 .shadow {
     background: black;
-    width: 10rem;
+    width: 190px;
     height: 1rem;
-    margin-top: 2rem;
+    margin-top: 40px;
     border-radius: 50%;
     opacity: 0.4;
     animation: shadowAnimation 2s ease-in-out infinite;
